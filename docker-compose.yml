@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  mcp-servers:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: copilot-mcp-servers
+    volumes:
+      # Mount the workspace directory for file access
+      - ./workspace:/workspace
+      # Mount git config for git operations (optional)
+      - ~/.gitconfig:/root/.gitconfig:ro
+      # Mount the MCP config
+      - ./mcp-config.json:/mcp/mcp-config.json:ro
+    environment:
+      # GitHub token for GitHub MCP server (set in .env file)
+      - GITHUB_TOKEN=${GITHUB_TOKEN:-}
+      # Add other environment variables as needed
+    ports:
+      # Expose ports if your MCP servers need them
+      - "8080:8080"
+    restart: unless-stopped
+    networks:
+      - mcp-network
+
+networks:
+  mcp-network:
+    driver: bridge

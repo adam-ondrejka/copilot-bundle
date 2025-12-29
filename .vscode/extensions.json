@@ -1,0 +1,27 @@
+{
+  "recommendations": [
+    // GitHub Copilot
+    "github.copilot",
+    "github.copilot-chat",
+    
+    // Essential extensions
+    "editorconfig.editorconfig",
+    "streetsidesoftware.code-spell-checker",
+    "eamodio.gitlens",
+    
+    // Docker
+    "ms-azuretools.vscode-docker",
+    
+    // Formatting and linting
+    "esbenp.prettier-vscode",
+    "dbaeumer.vscode-eslint",
+    
+    // Markdown
+    "yzhang.markdown-all-in-one",
+    
+    // Other useful extensions
+    "humao.rest-client",
+    "redhat.vscode-yaml"
+  ],
+  "unwantedRecommendations": []
+}
