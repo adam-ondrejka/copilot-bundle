@@ -26,5 +26,7 @@ RUN mkdir -p /workspace
 ENV NODE_ENV=production
 ENV PATH="/mcp/node_modules/.bin:${PATH}"
 
-# Default command - keep container running
+# Default command - keeps container running for interactive MCP server management
+# MCP servers are typically started on-demand by client applications that connect to this container
+# If you want to auto-start specific servers, replace this with your startup script
 CMD ["tail", "-f", "/dev/null"]

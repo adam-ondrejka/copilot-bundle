@@ -16,7 +16,7 @@ This repository provides everything your team needs to get started quickly:
 ### 1. Clone This Repository
 
 ```bash
-git clone https://github.com/adam-ondrejka/copilot-bundle.git
+git clone https://github.com/YOUR-USERNAME/copilot-bundle.git
 cd copilot-bundle
 ```
 
