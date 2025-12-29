@@ -5,20 +5,10 @@ services:
       dockerfile: Dockerfile
     container_name: copilot-mcp-servers
     volumes:
-      # Mount the workspace directory for file access
-      - ./workspace:/workspace
-      # Mount git config for git operations (optional)
-      - ~/.gitconfig:/root/.gitconfig:ro
       # Mount the MCP config
       - ./mcp-config.json:/mcp/mcp-config.json:ro
-    environment:
-      # GitHub token for GitHub MCP server (set in .env file)
-      - GITHUB_TOKEN=${GITHUB_TOKEN:-}
-      # Add other environment variables as needed
-    # Note: Port 8080 is exposed but may not be used by default MCP servers
-    # Remove or modify this based on your specific MCP server requirements
-    # ports:
-    #   - "8080:8080"
+      # Mount docker socket for awesome-copilot server
+      - /var/run/docker.sock:/var/run/docker.sock
     restart: unless-stopped
     networks:
       - mcp-network

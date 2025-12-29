@@ -1,40 +1,48 @@
 {
-  "mcpServers": {
-    "filesystem": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "@modelcontextprotocol/server-filesystem",
-        "/workspace"
-      ],
-      "description": "Provides filesystem access for reading and writing files"
-    },
+  "servers": {
     "github": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "@modelcontextprotocol/server-github"
-      ],
-      "env": {
-        "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_TOKEN}"
-      },
-      "description": "Provides GitHub integration for repositories and issues"
+      "type": "http",
+      "url": "https://api.githubcopilot.com/mcp/",
+      "headers": {
+        "Authorization": "${input:Authorization}"
+      }
     },
-    "git": {
+    "sequentialthinking": {
       "command": "npx",
       "args": [
         "-y",
-        "@modelcontextprotocol/server-git"
+        "@modelcontextprotocol/server-sequential-thinking"
       ],
-      "description": "Provides Git operations and repository management"
+      "type": "stdio"
     },
-    "memory": {
+    "atlassian-mcp-server": {
+      "url": "https://mcp.atlassian.com/v1/sse",
+      "type": "http"
+    },
+    "awesome-copilot": {
+      "command": "docker",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "ghcr.io/microsoft/mcp-dotnet-samples/awesome-copilot:latest"
+      ],
+      "type": "stdio"
+    },
+    "playwright": {
       "command": "npx",
       "args": [
-        "-y",
-        "@modelcontextprotocol/server-memory"
+        "@playwright/mcp@latest"
       ],
-      "description": "Provides persistent memory storage across sessions"
+      "type": "stdio"
     }
-  }
+  },
+  "inputs": [
+    {
+      "id": "Authorization",
+      "type": "promptString",
+      "description": "GitHub authentication token",
+      "password": true
+    }
+  ]
 }

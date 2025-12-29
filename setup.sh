@@ -1,21 +1,11 @@
 #!/bin/bash
 
 # Quick Setup Script for Copilot Bundle
-# This script helps you get started quickly
 
 set -e
 
 echo "🚀 Setting up Copilot Bundle..."
 echo ""
-
-# Check if .env exists
-if [ ! -f .env ]; then
-    echo "📝 Creating .env file from template..."
-    cp .env.example .env
-    echo "✅ .env file created. Please edit it with your tokens before starting MCP servers."
-else
-    echo "✅ .env file already exists"
-fi
 
 # Check if Docker is installed
 if command -v docker &> /dev/null; then
@@ -40,10 +30,8 @@ echo "   code ."
 echo ""
 echo "2. Install recommended extensions when prompted"
 echo ""
-echo "3. If using MCP servers:"
-echo "   - Edit .env file with your tokens"
-echo "   - Run: docker-compose up -d"
-echo "   - Or use VSCode task: 'Start MCP Servers'"
+echo "3. Copy mcp-config.json to your Copilot settings or use Docker:"
+echo "   docker compose up -d"
 echo ""
 echo "4. Start coding! 🎉"
 echo ""
