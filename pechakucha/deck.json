@@ -11,7 +11,8 @@
   "note": [
    "The robber is invented. He is there so the ten slides follow one case instead of ten topics."
   ],
-  "own": "Swap the shop for a case you know: a film, a news story, something from your town."
+  "own": "Swap the shop for a case you know: a film, a news story, something from your town.",
+  "cues": "shop robbery · police ask how · psychologist asks why him, why that day"
  },
  {
   "topic": "The brain: prefrontal cortex",
@@ -27,7 +28,8 @@
    "\"No longer Gage\" comes from his doctor, John Harlow, writing in 1868. The change was probably temporary: Gage later worked for years as a stagecoach driver in Chile (Macmillan, 2000).",
    "The scan study is Raine, Buchsbaum and LaCasse (1997): PET scans of 41 murderers who pleaded insanity and 41 controls. It is a group average and a correlation, so say \"one study\", not \"murderers have\"."
   ],
-  "own": "Gage is the textbook case. If your course used another example of frontal damage, use that one."
+  "own": "Gage is the textbook case. If your course used another example of frontal damage, use that one.",
+  "cues": "Gage, 1848, iron bar · not Gage any more · front of brain = brake · murderers' scans"
  },
  {
   "topic": "The brain: amygdala, fear and empathy",
@@ -43,7 +45,8 @@
    "Results across studies are mixed, which is why the script says \"tends to\".",
    "Say it a-MIG-da-la."
   ],
-  "own": "The weather forecast is a borrowed comparison. What would you compare it to?"
+  "own": "The weather forecast is a borrowed comparison. What would you compare it to?",
+  "cues": "amygdala = alarm · frightened faces · quiet in psychopathic traits · fear as information · punishment"
  },
  {
   "topic": "Personality: dissocial disorder and psychopathy",
@@ -59,7 +62,8 @@
    "About 1.2% of the general population (Sanz-García et al., 2021). One in five is the upper figure from North American prisons; in England and Wales it was 7.7% of male prisoners (Coid et al., 2009).",
    "\"The Mask of Sanity\" is Hervey Cleckley's 1941 book, where the image comes from."
   ],
-  "own": "Name the trait you find most striking: the lying, the boredom, the charm. One trait, your pick."
+  "own": "Name the trait you find most striking: the lying, the boredom, the charm. One trait, your pick.",
+  "cues": "mask: charm, no guilt · dissocial personality disorder · 1 in 100, prisons · most never violent"
  },
  {
   "topic": "Nature and nurture",
@@ -75,7 +79,8 @@
    "\"Abusive\" covers neglect and rejection as well as violence. The gene alone had no clear effect. A review of 27 studies confirmed the finding in males (Byrd and Manuck, 2014).",
    "The gun line is an old saying with no clear author. Do not call MAOA the \"warrior gene\"."
   ],
-  "own": "Do you believe \"both\"? Say which side you lean to, in one sentence of your own."
+  "own": "Do you believe \"both\"? Say which side you lean to, in one sentence of your own.",
+  "cues": "born or made: both · New Zealand study · gene + abuse · same gene, safe home · gun and trigger"
  },
  {
   "topic": "Profiling",
@@ -90,7 +95,8 @@
    "Method (modus operandi) is what the crime requires and changes as the offender learns. Signature is what he adds for himself and stays the same (Douglas and Munn, 1992, FBI).",
    "Research finds profilers do only slightly better than non-profilers (Snook et al., 2007). That is why the script says \"tries\" and \"at best\"."
   ],
-  "own": "Use a signature from a case or a series you know instead of the gloves and the window."
+  "own": "Use a signature from a case or a series you know instead of the gloves and the window.",
+  "cues": "back to the shop · profiler reads the scene · method vs signature · no name, shorter list"
  },
  {
   "topic": "Eyewitness memory",
@@ -105,7 +111,8 @@
    "Loftus and Palmer (1974): asked how fast the cars \"smashed\", students guessed about 41 mph; with \"contacted\", about 32 mph. A week later about a third of the \"smashed\" group remembered broken glass. There was none.",
    "The gun effect is called weapon focus (Loftus, Loftus and Messo, 1987). It makes memory for the face worse; it does not erase it."
   ],
-  "own": "Replace the gun line with a time you remembered something wrong yourself."
+  "own": "Replace the gun line with a time you remembered something wrong yourself.",
+  "cues": "memory is not a camera · Loftus and Palmer, \"smashed\" · broken glass · the gun, not the face"
  },
  {
   "topic": "Investigative interviews",
@@ -121,7 +128,8 @@
    "The English method is the PEACE model, introduced in England and Wales in 1992 after several wrongful convictions.",
    "More than a quarter of the Innocence Project's DNA exonerations involved a false confession. A third of 125 proven false confessions came from under-18s (Drizin and Leo, 2004)."
   ],
-  "own": "Pressure or listening: which would you trust? One sentence of your opinion fits here."
+  "own": "Pressure or listening: which would you trust? One sentence of your opinion fits here.",
+  "cues": "interview room · American pressure · false confessions, teenagers · England: open questions · check the evidence"
  },
  {
   "topic": "In court and in prison",
@@ -136,7 +144,8 @@
    "The expert advises and the court decides. In many European courts a psychiatrist leads on sanity and the psychologist contributes. Check how your course describes it.",
    "Faking illness is called malingering. Risk before release is estimated with tools such as the HCR-20 and the PCL-R, which are only moderately accurate (Fazel et al., 2012)."
   ],
-  "own": "If your course named the tests (PCL-R, HCR-20), say one of them here."
+  "own": "If your course named the tests (PCL-R, HCR-20), say one of them here.",
+  "cues": "court: did he understand? · real or acted? · prison: safe to release? · an estimate, a signature"
  },
  {
   "topic": "The point",
@@ -151,6 +160,7 @@
    "No \"Thank you\" slide: the rules ask you to keep talking over the last photo until it ends.",
    "\"Much of it\", not \"all of it\". Early warning signs raise risk; they do not predict a crime."
   ],
-  "own": "This is your conclusion. Say in your own words why this matters to you."
+  "own": "This is your conclusion. Say in your own words why this matters to you.",
+  "cues": "why him: brakes, fear, childhood · why that day: one bad day · no excuse · notice it early"
  }
 ]

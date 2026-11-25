@@ -72,6 +72,8 @@ textarea{width:100%;min-height:9.2em;resize:vertical;background:var(--bg);border
 .meter{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:12.5px;align-items:baseline}
 .meter .t.ok{color:var(--ok)} .meter .t.warn{color:var(--warn)} .meter .t.bad{color:var(--bad)}
 .flags{font-size:12.5px;color:var(--warn)}
+.cues{font-size:14px;font-weight:500}
+.ways{margin:0;padding-left:18px;max-width:70ch}.ways li{margin-bottom:6px}
 .terms{border-collapse:collapse;width:100%;font-size:14px}.terms th{text-align:left;font:600 11px/1.2 var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}.terms th,.terms td{padding:6px 14px 6px 0;border-bottom:1px solid var(--line);vertical-align:top}.terms td:last-child{font-family:var(--mono);font-size:12.5px;color:var(--muted)}
 details{font-size:13.5px}
 details summary{cursor:pointer;color:var(--muted);font-weight:500}
@@ -137,6 +139,17 @@ details li{margin-bottom:6px}
 
   <div id="slides" class="col" style="gap:16px"></div>
 
+  <section class="panel" aria-labelledby="hWays">
+    <h2 id="hWays">Three ways to tell it</h2>
+    <p class="small">From the Gemini chat. The suggested script uses the first for slides 2 to 5 and the second for slides 6 to 9. Lean further into one if it sounds more like you.</p>
+    <ul class="ways">
+      <li><b>How a criminal is made.</b> Follow one person from brain and childhood to the crime. More personal. Give slides 2 to 5 your own example each.</li>
+      <li><b>The detective's view.</b> Start at the scene and work back to the person. Faster. Open slide 1 on the scene and move slide 6 up in your telling.</li>
+      <li><b>Myth and reality.</b> Open each slide with what films get wrong, then say what is true. Works well on slides 4, 6 and 8.</li>
+    </ul>
+    <p class="small">To speak in your own words: rehearse with "Outline only", say each slide from the cue words, then type what you actually said into the script box.</p>
+  </section>
+
   <section class="panel" aria-labelledby="hTerms">
     <h2 id="hTerms">Key terms</h2>
     <p class="small">The words the talk and the discussion after it lean on. The Gemini chat asked for these; the stress marks are for saying them aloud.</p>
@@ -187,7 +200,7 @@ details li{margin-bottom:6px}
 
 <div class="rehearse" id="rh" hidden>
   <div class="top"><span id="rhN"></span><span id="rhT"></span><span class="sp"></span>
-    <button type="button" id="rhHide">Hide script</button><button type="button" id="rhPause">Pause</button><button type="button" id="rhClose">Close</button></div>
+    <button type="button" id="rhHide">Outline only</button><button type="button" id="rhPause">Pause</button><button type="button" id="rhClose">Close</button></div>
   <div class="prog"><i id="rhBar"></i></div>
   <div class="frame"><div class="stage" id="rhStage"><img alt="" id="rhImg"><div class="shade"></div><div class="word"></div></div></div>
   <p class="say" id="rhSay"></p>
@@ -256,7 +269,7 @@ function buildCards(){
     const meter = el('div',{class:'meter'}); const flags = el('p',{class:'flags'});
     const reset = el('button',{type:'button',class:'linkbtn',text:'Restore suggested text',onclick:()=>{ S.s[i].script=d.script; ta.value=d.script; save(); refresh(i); }});
     const left = el('div',{class:'col'},[stage,credit,el('p',{class:'small'},[el('a',{href:'https://www.google.com/search?udm=2&q='+encodeURIComponent(d.search),target:'_blank',rel:'noopener',text:'More on Google Images'}),document.createTextNode(' · save one you like, then use it as your own photo.')])]);
-    const right = el('div',{class:'col'},[el('span',{class:'label',text:'Photo'}),thumbs,el('span',{class:'label',text:'Word on the slide'}),words,wc,el('span',{class:'label',text:'What you say'}),ta,meter,flags,el('p',{class:'small'},[el('b',{text:'Make it yours. '}),document.createTextNode(d.own)])]);
+    const right = el('div',{class:'col'},[el('span',{class:'label',text:'Photo'}),thumbs,el('span',{class:'label',text:'Word on the slide'}),words,wc,el('span',{class:'label',text:'Outline'}),el('p',{class:'cues',text:d.cues}),el('span',{class:'label',text:'What you say'}),ta,meter,flags,el('p',{class:'small'},[el('b',{text:'Make it yours. '}),document.createTextNode(d.own)])]);
     if(d.note.length){ const det=el('details',{},[el('summary',{text:'If someone asks'})]); const ul=el('ul'); d.note.forEach(n=>ul.append(el('li',{text:n}))); det.append(ul); right.append(det); }
     const head = el('header',{},[el('span',{class:'num mono',text:String(i+1).padStart(2,'0')}),el('span',{class:'topic',text:d.topic}),el('span',{class:'when mono'})]);
     host.append(el('article',{class:'slide'},[head,left,right]));
@@ -339,10 +352,13 @@ async function buildDeck(onStep){
     let xml=await zip.file(name).async('string');
     xml = xml.includes('</p:clrMapOvr>') ? xml.replace('</p:clrMapOvr>','</p:clrMapOvr>'+tr) : xml.replace('</p:sld>',tr+'</p:sld>');
     zip.file(name,xml); }
+  // PowerPoint's schema wants the notes master list right after the slide master list
+  const pf='ppt/presentation.xml', px=await zip.file(pf).async('string'), nm=px.match(/<p:notesMasterIdLst>.*?<\/p:notesMasterIdLst>/);
+  if(nm && px.indexOf(nm[0])>px.indexOf('<p:sldIdLst>')) zip.file(pf, px.replace(nm[0],'').replace('</p:sldMasterIdLst>','</p:sldMasterIdLst>'+nm[0]));
   return zip.generateAsync({type:'blob',compression:'DEFLATE'});
 }
 function scriptText(){ const sec=+S.g.sec||20; let t='Forensic Psychology: How a Mind of a Criminal Works\nPechaKucha, 10 slides, '+sec+' seconds each\n';
-  DECK.forEach((d,i)=>{ t+='\n'+(i+1)+'. '+(S.s[i].word.trim()||'(photo only)')+'   ['+mmss(i*sec)+']\n'+S.s[i].script.trim()+'\n'; });
+  DECK.forEach((d,i)=>{ t+='\n'+(i+1)+'. '+(S.s[i].word.trim()||'(photo only)')+'   ['+mmss(i*sec)+']\nOutline: '+d.cues+'\n'+S.s[i].script.trim()+'\n'; });
   t+='\nPhotos\n'; DECK.forEach((d,i)=>{ const im=d.images[S.s[i].img]; t+=(i+1)+'. '+(own[i]?'your own photo':im.title+(im.by?' by '+im.by:'')+', '+im.lic+', '+im.page)+'\n'; });
   return t; }
 const WHY={declined:'Not saved. Press the button again when you want the file.',rate_limited:'A save is already open. Finish it, then try again.',host_unavailable:'This app cannot save files. Open the page in a browser or on a computer.'};
@@ -362,8 +378,8 @@ $('bScript').addEventListener('click',()=>offer('Criminal-Mind-script.txt',async
 window.__build = buildDeck; window.__script = scriptText;
 
 /* ---------- rehearse ---------- */
-const R={i:0,t:0,on:false,last:0,raf:0,hide:false};
-function rhShow(){ const i=R.i; $('rhImg').src=src(i,true); paintStage($('rhStage'),i); $('rhN').textContent='Slide '+(i+1)+' of 10'; $('rhSay').textContent=R.hide?'':S.s[i].script; }
+const R={i:0,t:0,on:false,last:0,raf:0,mode:0}; const RM=['Outline only','Hide text','Show script'];
+function rhShow(){ const i=R.i; $('rhImg').src=src(i,true); paintStage($('rhStage'),i); $('rhN').textContent='Slide '+(i+1)+' of 10'; $('rhSay').textContent=R.mode===0?S.s[i].script:R.mode===1?DECK[i].cues:''; }
 function rhTick(now){ const sec=+S.g.sec||20; if(R.on){ R.t+=(now-R.last)/1000; } R.last=now;
   if(R.t>=sec){ if(R.i<9){ R.i++; R.t=0; rhShow(); } else { R.t=sec; R.on=false; $('rhPause').textContent='Again'; } }
   $('rhBar').style.width=(R.t/sec*100)+'%'; $('rhT').textContent=Math.max(0,Math.ceil(sec-R.t))+' s';
@@ -371,7 +387,7 @@ function rhTick(now){ const sec=+S.g.sec||20; if(R.on){ R.t+=(now-R.last)/1000; 
 $('bRehearse').addEventListener('click',()=>{ R.i=0;R.t=0;R.on=true;R.last=performance.now(); $('rhPause').textContent='Pause'; $('rh').hidden=false; rhShow(); R.raf=requestAnimationFrame(rhTick); try{ navigator.wakeLock&&navigator.wakeLock.request('screen').then(l=>R.lock=l).catch(()=>{}); }catch(e){} });
 $('rhClose').addEventListener('click',()=>{ $('rh').hidden=true; cancelAnimationFrame(R.raf); try{ R.lock&&R.lock.release(); }catch(e){} });
 $('rhPause').addEventListener('click',()=>{ const sec=+S.g.sec||20; if(R.i===9&&R.t>=sec){ R.i=0;R.t=0;R.on=true; rhShow(); } else R.on=!R.on; $('rhPause').textContent=R.on?'Pause':'Resume'; });
-$('rhHide').addEventListener('click',()=>{ R.hide=!R.hide; $('rhHide').textContent=R.hide?'Show script':'Hide script'; rhShow(); });
+$('rhHide').addEventListener('click',()=>{ R.mode=(R.mode+1)%3; $('rhHide').textContent=RM[R.mode]; rhShow(); });
 
 buildCards(); refreshAll();
 </script>
