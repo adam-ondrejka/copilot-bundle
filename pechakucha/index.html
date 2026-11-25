@@ -334,7 +334,7 @@ async function buildDeck(onStep){
       sl.addText(word,{x:0.6,y:p==='tl'?0.5:p==='c'?2.25:4.0,w:12.13,h:3,margin:0,fontFace:S.g.font,fontSize:+S.g.size,bold:S.g.font!=='Impact'&&S.g.font!=='Arial Black',color:S.g.color,align:mid?'center':'left',valign:p==='tl'?'top':p==='c'?'middle':'bottom',shadow:{type:'outer',color:'000000',opacity:.6,blur:8,offset:2,angle:90}}); }
   }
   const zip=await JSZip.loadAsync(await pptx.write({outputType:'arraybuffer'}));
-  const tr='<p:transition advClick="0" advTm="'+(sec*1000)+'"/>';
+  const tr='<p:transition spd="fast" advClick="0" advTm="'+(sec*1000)+'"><p:cut/></p:transition>'; // the cut child makes LibreOffice and Keynote read the timing too
   for(const name of Object.keys(zip.files)){ if(!/^ppt\/slides\/slide\d+\.xml$/.test(name)) continue;
     let xml=await zip.file(name).async('string');
     xml = xml.includes('</p:clrMapOvr>') ? xml.replace('</p:clrMapOvr>','</p:clrMapOvr>'+tr) : xml.replace('</p:sld>',tr+'</p:sld>');
