@@ -1,0 +1,350 @@
+<title>Criminal Mind PechaKucha</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;800&family=IBM+Plex+Mono:wght@500&family=Inter:wght@400;500;600&display=swap">
+<style>
+/* Layout: one working column. Settings on top, ten slide cards in talk order, a fixed bar that builds the file. */
+:root{
+  --bg:#eef1f4; --surface:#ffffff; --sunk:#e4e9ee; --ink:#16202b; --muted:#566473; --line:#cfd7df;
+  --tape:#f2c200; --tape-ink:#1a1500; --ok:#1c7548; --warn:#8a5a00; --bad:#b3261e; --focus:#1f6feb;
+  --display:"Archivo","Arial Narrow",Arial,sans-serif; --body:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif; --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#10161d; --surface:#18212b; --sunk:#0c1117; --ink:#e8edf2; --muted:#9aa7b4; --line:#2c3947;
+  --tape:#f2c200; --tape-ink:#1a1500; --ok:#58c28a; --warn:#f0b849; --bad:#ff8a80; --focus:#79b0ff; color-scheme:dark } }
+:root[data-theme="dark"]{
+  --bg:#10161d; --surface:#18212b; --sunk:#0c1117; --ink:#e8edf2; --muted:#9aa7b4; --line:#2c3947;
+  --tape:#f2c200; --tape-ink:#1a1500; --ok:#58c28a; --warn:#f0b849; --bad:#ff8a80; --focus:#79b0ff; color-scheme:dark }
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:400 15px/1.5 var(--body);}
+.wrap{max-width:1040px;margin:0 auto;padding-block:24px 150px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:20px}
+h1{font:800 clamp(26px,5vw,38px)/1.05 var(--display);margin:0;letter-spacing:-.01em;text-wrap:balance}
+h2{font:800 18px/1.2 var(--display);margin:0}
+p{margin:0}
+.lede{color:var(--muted);max-width:65ch}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.label{font:600 11px/1.2 var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+a{color:inherit}
+
+.facts{display:flex;flex-wrap:wrap;gap:6px 18px;font-family:var(--mono);font-size:13px;color:var(--muted)}
+.facts b{color:var(--ink);font-weight:500}
+
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px;display:flex;flex-direction:column;gap:14px}
+.settings{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px 14px}
+.field{display:flex;flex-direction:column;gap:5px;min-width:0}
+.field select,.field input[type=number]{background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:7px 8px;width:100%}
+.field input[type=range]{width:100%;accent-color:var(--tape)}
+
+.rules{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:6px 16px;font-size:14px}
+.rules li{display:flex;gap:8px;align-items:baseline}
+.rules .mark{font-family:var(--mono);font-size:12px;flex:none;width:34px}
+.rules li.ok .mark{color:var(--ok)} .rules li.no .mark{color:var(--bad)} .rules li.no{color:var(--bad)}
+.small{font-size:13px;color:var(--muted)}
+
+.slide{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px;display:grid;grid-template-columns:minmax(0,340px) minmax(0,1fr);gap:16px 20px}
+.slide>header{grid-column:1/-1;display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px}
+.slide .num{font:800 22px/1 var(--display)}
+.slide .topic{font-weight:600}
+.slide .when{margin-left:auto;font-size:12.5px;color:var(--muted)}
+.col{display:flex;flex-direction:column;gap:10px;min-width:0}
+.stage{position:relative;aspect-ratio:16/9;max-width:100%;border-radius:6px;overflow:hidden;background:#000;container-type:size}
+.stage img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;max-width:none}
+.stage.bw img{filter:grayscale(1)}
+.stage .shade{position:absolute;inset:0}
+.stage .word{position:absolute;left:4.5%;width:91%;height:40%;display:flex;font-weight:800;line-height:1.02;text-shadow:0 .5cqh 2cqh rgba(0,0,0,.7)}
+.credit{font-size:12.5px;color:var(--muted);overflow-wrap:anywhere}
+.chip{display:inline-block;font:500 11px/1 var(--mono);border:1px solid var(--line);border-radius:4px;padding:3px 5px;margin-right:6px;color:var(--ink)}
+.chip.attr{border-color:var(--warn);color:var(--warn)}
+
+.thumbs{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px}
+.thumbs button{position:relative;aspect-ratio:16/9;border:0;padding:0;border-radius:5px;overflow:hidden;background:var(--sunk);cursor:pointer}
+.thumbs img{width:100%;height:100%;object-fit:cover;display:block;max-width:none}
+.thumbs button[aria-pressed=true]{outline:3px solid var(--tape);outline-offset:1px}
+.thumbs button[aria-pressed=true]::after{content:"";position:absolute;right:4px;top:4px;width:12px;height:12px;border-radius:50%;background:var(--tape);border:2px solid #000}
+.thumbs .own{border:1px dashed var(--muted);background:transparent;font-size:11.5px;line-height:1.15;color:var(--muted);padding:2px}
+.words{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.words button{background:var(--bg);border:1px solid var(--line);border-radius:999px;padding:5px 11px;cursor:pointer;font-weight:500}
+.words button[aria-pressed=true]{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+.words input{flex:1 1 130px;min-width:0;background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:6px 9px}
+.words input.bad{border-color:var(--bad)}
+textarea{width:100%;min-height:9.2em;resize:vertical;background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:9px 10px;line-height:1.5}
+.meter{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:12.5px;align-items:baseline}
+.meter .t.ok{color:var(--ok)} .meter .t.warn{color:var(--warn)} .meter .t.bad{color:var(--bad)}
+.flags{font-size:12.5px;color:var(--warn)}
+details{font-size:13.5px}
+details summary{cursor:pointer;color:var(--muted);font-weight:500}
+details p,details ul{margin:8px 0 0;max-width:68ch}
+details ul{padding-left:18px}
+details li{margin-bottom:6px}
+
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--surface);border-top:1px solid var(--line);padding:10px max(16px,env(safe-area-inset-right,0px)) calc(10px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.bar .in{max-width:1040px;margin:0 auto;display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center}
+.bar .status{flex:1 1 180px;min-width:0;font-size:13.5px}
+.btn{border:1px solid var(--line);background:var(--bg);border-radius:8px;padding:10px 14px;font-weight:600;cursor:pointer}
+.btn.primary{background:var(--tape);color:var(--tape-ink);border-color:var(--tape)}
+.btn[disabled]{opacity:.5;cursor:not-allowed}
+.linkbtn{background:none;border:0;padding:0;color:var(--muted);text-decoration:underline;cursor:pointer;font-size:13px}
+
+.rehearse{position:fixed;inset:0;z-index:50;background:#000;color:#fff;display:flex;flex-direction:column}
+.rehearse .top{display:flex;gap:10px;align-items:center;padding:calc(8px + env(safe-area-inset-top,0px)) max(12px,env(safe-area-inset-right,0px)) 8px max(12px,env(safe-area-inset-left,0px));font-family:var(--mono);font-size:13px}
+.rehearse .top button{background:#222;color:#fff;border:1px solid #444;border-radius:6px;padding:7px 11px;font:600 13px var(--body);cursor:pointer}
+.rehearse .top .sp{flex:1}
+.rehearse .frame{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;padding:0 8px}
+.rehearse .stage{width:min(100%,calc((100vh - 230px)*16/9));border-radius:0}
+.rehearse .prog{height:6px;background:#333}
+.rehearse .prog i{display:block;height:100%;width:0;background:var(--tape)}
+.rehearse .say{padding:12px max(16px,env(safe-area-inset-right,0px)) calc(14px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));font-size:17px;line-height:1.45;max-width:70ch;margin:0 auto;min-height:6.5em}
+
+@media (max-width:720px){
+  .slide{grid-template-columns:minmax(0,1fr)}
+  .thumbs{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .slide .when{margin-left:0}
+}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto}}
+</style>
+
+<div class="wrap">
+  <header class="col" style="gap:10px">
+    <p class="label">Forensic Psychology · How a Mind of a Criminal Works</p>
+    <h1>Criminal Mind PechaKucha</h1>
+    <p class="lede">Ten photos, one or two words on each, twenty seconds per slide. Pick the photo, adjust the word, put the script into your own words, then build the PowerPoint file.</p>
+    <p class="facts"><span><b>10</b> slides</span><span><b id="fSec">20</b> s each</span><span><b id="fTotal">3:20</b> total</span><span>script stays out of the file</span></p>
+  </header>
+
+  <section class="panel" aria-labelledby="hLook">
+    <h2 id="hLook">Look of the slides</h2>
+    <div class="settings">
+      <label class="field"><span class="label">Photos</span><select id="gTone"><option value="bw">Black and white</option><option value="color">Colour</option></select></label>
+      <label class="field"><span class="label">Font</span><select id="gFont"><option>Arial Black</option><option>Georgia</option><option>Impact</option><option>Calibri</option></select></label>
+      <label class="field"><span class="label">Word size</span><select id="gSize"><option value="48">Small</option><option value="66">Medium</option><option value="88">Large</option></select></label>
+      <label class="field"><span class="label">Word position</span><select id="gPos"><option value="bl">Bottom left</option><option value="bc">Bottom centre</option><option value="c">Centre</option><option value="tl">Top left</option></select></label>
+      <label class="field"><span class="label">Word colour</span><select id="gColor"><option value="FFFFFF">White</option><option value="F2C200">Yellow</option><option value="FF4B3E">Red</option></select></label>
+      <label class="field"><span class="label">Letters</span><select id="gCase"><option value="upper">CAPITALS</option><option value="asis">As typed</option></select></label>
+      <label class="field"><span class="label">Darken photos <span id="gDarkV" class="mono"></span></span><input id="gDark" type="range" min="0" max="60" step="5"></label>
+      <label class="field"><span class="label">Seconds per slide</span><input id="gSec" type="number" min="5" max="60" step="1"></label>
+      <label class="field"><span class="label">Speaking pace</span><select id="gPace"><option value="120">Slow</option><option value="132">Calm</option><option value="148">Quick</option></select></label>
+    </div>
+  </section>
+
+  <section class="panel" aria-labelledby="hRules">
+    <h2 id="hRules">Course rules</h2>
+    <ul class="rules" id="rules"></ul>
+    <p class="small">These are the rules as your Gemini chat quotes them from the course PDF. The PDF itself was not available here, so check it once before you hand in.</p>
+  </section>
+
+  <div id="slides" class="col" style="gap:16px"></div>
+
+  <section class="panel" aria-labelledby="hChanged">
+    <h2 id="hChanged">What changed from the Gemini draft</h2>
+    <details><summary>Seven corrections and why</summary>
+      <ul>
+        <li><b>Structure.</b> You asked for the brain, personality and nature versus nurture. Those now take slides 2 to 5; Gemini's draft gave them two slides. All three points from the course outline are still covered.</li>
+        <li><b>"Genetics play a small role."</b> Not accurate. The slide now uses the Dunedin study, where the gene mattered only together with childhood maltreatment.</li>
+        <li><b>Micro-expressions and body language.</b> Gemini's script used them for lie detection, and later in the same chat said no such tell exists. The script now uses false confessions and the PEACE interview model.</li>
+        <li><b>Organised and disorganised offenders.</b> Dropped. The FBI typology has weak research support; method versus signature is clearer and safer.</li>
+        <li><b>"Krugman/Rossmo model."</b> The geographic profiling model is Kim Rossmo's. There is no Krugman in it. It is not in the script; avoid the name in discussion.</li>
+        <li><b>"Trauma permanently damages the brain", "nobody is born a monster", "as easy as drinking a glass of water".</b> Overstated or stock lines. Replaced with one named case and one named study per slide.</li>
+        <li><b>Speaker notes.</b> The course rules forbid any text in the notes field, so the file is built with the notes empty. Save the script separately with the button below.</li>
+      </ul>
+    </details>
+  </section>
+</div>
+
+<div class="bar"><div class="in">
+  <div class="status" id="status" role="status"></div>
+  <button class="btn" id="bRehearse" type="button">Rehearse</button>
+  <button class="btn" id="bScript" type="button">Save script</button>
+  <button class="btn primary" id="bBuild" type="button">Build PowerPoint</button>
+</div></div>
+
+<div class="rehearse" id="rh" hidden>
+  <div class="top"><span id="rhN"></span><span id="rhT"></span><span class="sp"></span>
+    <button type="button" id="rhHide">Hide script</button><button type="button" id="rhPause">Pause</button><button type="button" id="rhClose">Close</button></div>
+  <div class="prog"><i id="rhBar"></i></div>
+  <div class="frame"><div class="stage" id="rhStage"><img alt="" id="rhImg"><div class="shade"></div><div class="word"></div></div></div>
+  <p class="say" id="rhSay"></p>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.min.js"></script>
+<script>
+const DECK = __DECK__;
+const KEY = 'cm-pechakucha-v1';
+const DEF = {tone:'bw',font:'Arial Black',size:'66',pos:'bl',color:'FFFFFF',case:'upper',dark:25,sec:20,pace:'132'};
+const FONT_CSS = {'Arial Black':'"Arial Black","Archivo",Arial,sans-serif','Georgia':'Georgia,"Times New Roman",serif','Impact':'Impact,"Archivo","Arial Narrow",sans-serif','Calibri':'Calibri,"Inter",Arial,sans-serif'};
+const SLOP = [/have you ever wondered/i,/welcome to/i,/dark world/i,/step inside/i,/dive in(to)?/i,/delve/i,/after all/i,/in conclusion/i,/it is important to/i,/plays? an? (key|crucial|vital|important|small) role/i,/shed(s)? light/i,/tapestry/i,/journey/i,/realm/i,/landscape/i,/crucial/i,/furthermore/i,/moreover/i,/ultimately/i,/fascinating/i,/intricate/i,/complex puzzle/i,/it'?s not (just )?about/i,/not only/i,/in today'?s/i,/unlock/i,/truly/i,/testament/i];
+
+let S = {g:{...DEF}, s:DECK.map(d=>({img:0, word:d.words[0], script:d.script}))};
+const own = {}; // slide index -> data URL of an uploaded photo (kept only while the page is open)
+try{ const saved = JSON.parse(localStorage.getItem(KEY)||'null');
+  if(saved && saved.s && saved.s.length===DECK.length){ S.g={...DEF,...saved.g}; saved.s.forEach((x,i)=>{ if(x){ S.s[i]={img:Math.min(+x.img||0,DECK[i].images.length-1), word:String(x.word??''), script:String(x.script??'')}; } }); }
+}catch(e){}
+const save = ()=>{ try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} };
+const $ = id=>document.getElementById(id);
+const el = (tag, props={}, kids=[])=>{ const n=document.createElement(tag); for(const k in props){ if(k==='class') n.className=props[k]; else if(k==='text') n.textContent=props[k]; else if(k.startsWith('on')) n.addEventListener(k.slice(2),props[k]); else n.setAttribute(k,props[k]); } kids.forEach(c=>n.append(c)); return n; };
+const countWords = t=>(t.trim().match(/\S+/g)||[]).length;
+const spoken = t=>(t.trim().match(/\S+/g)||[]).reduce((n,w)=>n+(/^\d{4}\D?$/.test(w)?3:1),0);
+const shown = w=> S.g.case==='upper' ? w.toUpperCase() : w;
+const mmss = s=>Math.floor(s/60)+':'+String(Math.round(s%60)).padStart(2,'0');
+const src = (i,full)=> own[i] || ((full?'img/':'img/t/')+DECK[i].images[S.s[i].img].f+'.jpg');
+
+function shadeCss(){ const d=S.g.dark/100, p=S.g.pos;
+  const base=`linear-gradient(rgba(0,0,0,${d}),rgba(0,0,0,${d}))`;
+  if(p==='c') return `linear-gradient(rgba(0,0,0,.25),rgba(0,0,0,.25)),${base}`;
+  const dir = p==='tl' ? 'to top' : 'to bottom';
+  return `linear-gradient(${dir},rgba(0,0,0,0) 45%,rgba(0,0,0,.72) 100%),${base}`; }
+function paintStage(stage,i){
+  stage.classList.toggle('bw', S.g.tone==='bw');
+  stage.querySelector('.shade').style.background = shadeCss();
+  const w = stage.querySelector('.word'), p=S.g.pos;
+  w.textContent = shown(S.s[i].word.trim());
+  w.style.fontFamily = FONT_CSS[S.g.font]; w.style.color = '#'+S.g.color;
+  w.style.fontSize = (S.g.size/540*100)+'cqh';
+  w.style.top = p==='tl' ? '6.5%' : p==='c' ? '30%' : '53.5%';
+  w.style.alignItems = p==='tl' ? 'flex-start' : p==='c' ? 'center' : 'flex-end';
+  w.style.justifyContent = (p==='bc'||p==='c') ? 'center' : 'flex-start';
+  w.style.textAlign = (p==='bc'||p==='c') ? 'center' : 'left';
+}
+
+const cards = [];
+function buildCards(){
+  const host = $('slides');
+  DECK.forEach((d,i)=>{
+    const stage = el('div',{class:'stage'},[el('img',{alt:''}),el('div',{class:'shade'}),el('div',{class:'word'})]);
+    const credit = el('p',{class:'credit'});
+    const thumbs = el('div',{class:'thumbs',role:'group','aria-label':'Photo for slide '+(i+1)});
+    d.images.forEach((im,k)=> thumbs.append(el('button',{type:'button',title:im.title,onclick:()=>{ delete own[i]; S.s[i].img=k; save(); refresh(i); }},[el('img',{src:'img/t/'+im.f+'.jpg',alt:'Option '+(k+1)+': '+im.title,loading:'lazy'})])));
+    const file = el('input',{type:'file',accept:'image/*',id:'file'+i,hidden:''});
+    file.addEventListener('change',()=>{ const f=file.files[0]; if(!f) return; const r=new FileReader(); r.onload=()=>{ own[i]=r.result; refresh(i); }; r.readAsDataURL(f); });
+    thumbs.append(el('button',{type:'button',class:'own',text:'Use your own photo',onclick:()=>file.click()}), file);
+    const words = el('div',{class:'words'});
+    d.words.forEach(w=> words.append(el('button',{type:'button',text:w,onclick:()=>{ S.s[i].word=w; input.value=w; save(); refresh(i); }})));
+    const input = el('input',{type:'text',id:'word'+i,value:S.s[i].word,'aria-label':'Word on slide '+(i+1),placeholder:'your own, 2 words at most'});
+    input.addEventListener('input',()=>{ S.s[i].word=input.value; save(); refresh(i); });
+    words.append(input);
+    const wc = el('p',{class:'small'});
+    const ta = el('textarea',{id:'say'+i,'aria-label':'What you say on slide '+(i+1)}); ta.value=S.s[i].script;
+    ta.addEventListener('input',()=>{ S.s[i].script=ta.value; save(); refresh(i); });
+    const meter = el('div',{class:'meter'}); const flags = el('p',{class:'flags'});
+    const reset = el('button',{type:'button',class:'linkbtn',text:'Restore suggested text',onclick:()=>{ S.s[i].script=d.script; ta.value=d.script; save(); refresh(i); }});
+    const left = el('div',{class:'col'},[stage,credit,el('p',{class:'small'},[el('a',{href:'https://www.google.com/search?udm=2&q='+encodeURIComponent(d.search),target:'_blank',rel:'noopener',text:'More on Google Images'}),document.createTextNode(' · save one you like, then use it as your own photo.')])]);
+    const right = el('div',{class:'col'},[el('span',{class:'label',text:'Photo'}),thumbs,el('span',{class:'label',text:'Word on the slide'}),words,wc,el('span',{class:'label',text:'What you say'}),ta,meter,flags]);
+    if(d.note.length){ const det=el('details',{},[el('summary',{text:'If someone asks'})]); const ul=el('ul'); d.note.forEach(n=>ul.append(el('li',{text:n}))); det.append(ul); right.append(det); }
+    const head = el('header',{},[el('span',{class:'num mono',text:String(i+1).padStart(2,'0')}),el('span',{class:'topic',text:d.topic}),el('span',{class:'when mono'})]);
+    host.append(el('article',{class:'slide'},[head,left,right]));
+    cards.push({stage,credit,thumbs,words,input,wc,ta,meter,flags,reset,head});
+  });
+}
+function refresh(i){
+  const c=cards[i], d=DECK[i], st=S.s[i], sec=+S.g.sec||20;
+  c.stage.querySelector('img').src = src(i,false); paintStage(c.stage,i);
+  c.head.querySelector('.when').textContent = mmss(i*sec)+' to '+mmss((i+1)*sec);
+  c.credit.replaceChildren();
+  if(own[i]){ c.credit.append(el('span',{class:'chip',text:'YOUR PHOTO'}),document.createTextNode('Not remembered after you close the page. Check you may use it.')); }
+  else { const im=d.images[st.img]; const free=im.lic==='CC0'||im.lic==='Public domain';
+    c.credit.append(el('span',{class:'chip'+(free?'':' attr'),text:im.lic}), document.createTextNode((free?'No credit needed. ':'Licence asks for a credit; say it aloud or pick a CC0 photo. ')), el('a',{href:im.page,target:'_blank',rel:'noopener',text:im.title+(im.by?' by '+im.by:'')})); }
+  [...c.thumbs.querySelectorAll('button:not(.own)')].forEach((b,k)=>b.setAttribute('aria-pressed', String(!own[i]&&k===st.img)));
+  c.thumbs.querySelector('.own').setAttribute('aria-pressed', String(!!own[i]));
+  [...c.words.querySelectorAll('button')].forEach(b=>b.setAttribute('aria-pressed', String(b.textContent===st.word.trim())));
+  const n=countWords(st.word); c.input.classList.toggle('bad', n>2);
+  c.wc.textContent = n===0 ? 'No word: the slide shows the photo only. That is allowed.' : n>2 ? n+' words. The rule is 2 at most, or the talk gets 0 points.' : n+(n===1?' word':' words')+' of 2 allowed.';
+  c.wc.style.color = n>2 ? 'var(--bad)' : '';
+  const w=spoken(st.script), t=w/(+S.g.pace)*60, cls = t<=sec ? 'ok' : t<=sec*1.08 ? 'warn' : 'bad';
+  c.meter.replaceChildren(el('span',{class:'mono',text:w+' words'}), el('span',{class:'t mono '+cls,text:'about '+t.toFixed(0)+' s of '+sec}), el('span',{class:'small',text: cls==='bad'?'The slide will change before you finish.':cls==='warn'?'No room for a pause.':''}));
+  if(st.script!==d.script) c.meter.append(c.reset);
+  const hits=[]; SLOP.forEach(r=>{ const m=st.script.match(r); if(m) hits.push('"'+m[0]+'"'); });
+  const long=(st.script.match(/[^.!?]+[.!?]?/g)||[]).filter(x=>countWords(x)>18).length;
+  const out=[]; if(hits.length) out.push('Sounds generated: '+hits.join(', ')+'.'); if(long) out.push(long+(long===1?' sentence is':' sentences are')+' over 18 words and hard to say from memory.');
+  c.flags.textContent=out.join(' ');
+  rules();
+}
+function ruleList(){ const sec=+S.g.sec||20; const over=S.s.map((x,i)=>countWords(x.word)>2?i+1:0).filter(Boolean);
+  return [
+    [true,'10 slides'],
+    [over.length===0, over.length?'More than 2 words on slide '+over.join(', '):'2 words at most on every slide'],
+    [true,'A full-screen photo on every slide'],
+    [sec===20, sec===20?'Slides change by themselves after 20 s':'Slides change after '+sec+' s; the rule says 20'],
+    [true,'Nothing in the speaker notes'],
+    [!/thank/i.test(S.s[9].word),'No "Thank you" on the last slide'],
+    [!/forensic psychology|lapinov/i.test(S.s[0].word),'No name or title slide; slide 1 starts the story']
+  ]; }
+function rules(){ const list=ruleList(), host=$('rules'); host.replaceChildren();
+  list.forEach(([ok,t])=>host.append(el('li',{class:ok?'ok':'no'},[el('span',{class:'mark',text:ok?'OK':'FIX'}),el('span',{text:t})])));
+  const bad=list.filter(x=>!x[0]).length; $('bBuild').disabled = bad>0 || busy;
+  if(!busy) $('status').textContent = bad ? bad+(bad===1?' rule is':' rules are')+' broken. Fix '+(bad===1?'it':'them')+' to build the file.' : 'All course rules pass. Ready to build.';
+  const sec=+S.g.sec||20; $('fSec').textContent=sec; $('fTotal').textContent=mmss(sec*10); }
+function refreshAll(){ DECK.forEach((_,i)=>refresh(i)); $('gDarkV').textContent=S.g.dark+'%'; }
+
+const G={gTone:'tone',gFont:'font',gSize:'size',gPos:'pos',gColor:'color',gCase:'case',gDark:'dark',gSec:'sec',gPace:'pace'};
+for(const id in G){ const n=$(id); n.value=S.g[G[id]]; n.addEventListener('input',()=>{ let v=n.value; if(id==='gDark') v=+v; if(id==='gSec') v=Math.max(5,Math.min(60,Math.round(+v||20))); S.g[G[id]]=v; save(); refreshAll(); }); }
+
+/* ---------- building the file ---------- */
+let busy=false;
+function loadImg(url){ return new Promise((res,rej)=>{ const im=new Image(); im.onload=()=>res(im); im.onerror=()=>rej(new Error('A photo could not be loaded')); im.src=url; }); }
+async function bake(i){
+  let url=src(i,true), revoke=null;
+  if(!own[i]){ const r=await fetch(url); if(!r.ok) throw new Error('A photo could not be loaded'); url=revoke=URL.createObjectURL(await r.blob()); }
+  const im=await loadImg(url); if(revoke) URL.revokeObjectURL(revoke);
+  const W=1920,H=1080,c=document.createElement('canvas'); c.width=W; c.height=H; const x=c.getContext('2d');
+  const s=Math.max(W/im.naturalWidth,H/im.naturalHeight), w=im.naturalWidth*s, h=im.naturalHeight*s;
+  x.drawImage(im,(W-w)/2,(H-h)/2,w,h);
+  if(S.g.tone==='bw'){ const d=x.getImageData(0,0,W,H), p=d.data; for(let k=0;k<p.length;k+=4){ const g=p[k]*.2126+p[k+1]*.7152+p[k+2]*.0722; p[k]=p[k+1]=p[k+2]=g; } x.putImageData(d,0,0); }
+  x.fillStyle='rgba(0,0,0,'+(S.g.dark/100)+')'; x.fillRect(0,0,W,H);
+  if(S.s[i].word.trim()){ const p=S.g.pos;
+    if(p==='c'){ x.fillStyle='rgba(0,0,0,.25)'; x.fillRect(0,0,W,H); }
+    else { const g = p==='tl' ? x.createLinearGradient(0,H,0,0) : x.createLinearGradient(0,0,0,H); g.addColorStop(.45,'rgba(0,0,0,0)'); g.addColorStop(1,'rgba(0,0,0,.72)'); x.fillStyle=g; x.fillRect(0,0,W,H); } }
+  return c.toDataURL('image/jpeg',.86);
+}
+async function buildDeck(onStep){
+  const sec=+S.g.sec||20, pptx=new PptxGenJS(); pptx.layout='LAYOUT_WIDE'; pptx.title='Forensic Psychology: How a Mind of a Criminal Works';
+  for(let i=0;i<DECK.length;i++){
+    onStep && onStep(i+1);
+    const sl=pptx.addSlide(); sl.background={color:'000000'};
+    sl.addImage({data:await bake(i),x:0,y:0,w:'100%',h:'100%'});
+    const word=shown(S.s[i].word.trim());
+    if(word){ const p=S.g.pos, mid=(p==='bc'||p==='c');
+      sl.addText(word,{x:0.6,y:p==='tl'?0.5:p==='c'?2.25:4.0,w:12.13,h:3,margin:0,fontFace:S.g.font,fontSize:+S.g.size,bold:S.g.font!=='Impact'&&S.g.font!=='Arial Black',color:S.g.color,align:mid?'center':'left',valign:p==='tl'?'top':p==='c'?'middle':'bottom',shadow:{type:'outer',color:'000000',opacity:.6,blur:8,offset:2,angle:90}}); }
+  }
+  const zip=await JSZip.loadAsync(await pptx.write({outputType:'arraybuffer'}));
+  const tr='<p:transition advClick="0" advTm="'+(sec*1000)+'"/>';
+  for(const name of Object.keys(zip.files)){ if(!/^ppt\/slides\/slide\d+\.xml$/.test(name)) continue;
+    let xml=await zip.file(name).async('string');
+    xml = xml.includes('</p:clrMapOvr>') ? xml.replace('</p:clrMapOvr>','</p:clrMapOvr>'+tr) : xml.replace('</p:sld>',tr+'</p:sld>');
+    zip.file(name,xml); }
+  return zip.generateAsync({type:'blob',compression:'DEFLATE'});
+}
+function scriptText(){ const sec=+S.g.sec||20; let t='Forensic Psychology: How a Mind of a Criminal Works\nPechaKucha, 10 slides, '+sec+' seconds each\n';
+  DECK.forEach((d,i)=>{ t+='\n'+(i+1)+'. '+(S.s[i].word.trim()||'(photo only)')+'   ['+mmss(i*sec)+']\n'+S.s[i].script.trim()+'\n'; });
+  t+='\nPhotos\n'; DECK.forEach((d,i)=>{ const im=d.images[S.s[i].img]; t+=(i+1)+'. '+(own[i]?'your own photo':im.title+(im.by?' by '+im.by:'')+', '+im.lic+', '+im.page)+'\n'; });
+  return t; }
+const WHY={declined:'Not saved. Press the button again when you want the file.',rate_limited:'A save is already open. Finish it, then try again.',host_unavailable:'This app cannot save files. Open the page in a browser or on a computer.'};
+async function offer(filename,make,doing){
+  if(busy) return; busy=true; $('bBuild').disabled=true; const st=$('status');
+  try{
+    const dl = window.claude && window.claude.use ? await window.claude.use('downloads') : null;
+    if(!dl){ st.textContent='Saving files is not available in this view. Open the page in a browser on claude.ai.'; return; }
+    st.textContent=doing; const data=await make(n=>{ st.textContent='Building slide '+n+' of 10…'; });
+    st.textContent='Confirm the save to get '+filename+'.';
+    await dl.save({filename,data}); st.textContent='Saved '+filename+'.';
+  }catch(e){ st.textContent = WHY[e&&e.code] || (e&&e.code ? 'Saving is not available here. Open the page in a browser or on a computer.' : 'Could not build the file: '+(e&&e.message||'unknown error')+'. Try again.'); }
+  finally{ busy=false; $('bBuild').disabled = ruleList().some(x=>!x[0]); }
+}
+$('bBuild').addEventListener('click',()=>offer('Criminal-Mind-PechaKucha.pptx',buildDeck,'Building…'));
+$('bScript').addEventListener('click',()=>offer('Criminal-Mind-script.txt',async()=>scriptText(),'Preparing the script…'));
+window.__build = buildDeck; window.__script = scriptText;
+
+/* ---------- rehearse ---------- */
+const R={i:0,t:0,on:false,last:0,raf:0,hide:false};
+function rhShow(){ const i=R.i; $('rhImg').src=src(i,true); paintStage($('rhStage'),i); $('rhN').textContent='Slide '+(i+1)+' of 10'; $('rhSay').textContent=R.hide?'':S.s[i].script; }
+function rhTick(now){ const sec=+S.g.sec||20; if(R.on){ R.t+=(now-R.last)/1000; } R.last=now;
+  if(R.t>=sec){ if(R.i<9){ R.i++; R.t=0; rhShow(); } else { R.t=sec; R.on=false; $('rhPause').textContent='Again'; } }
+  $('rhBar').style.width=(R.t/sec*100)+'%'; $('rhT').textContent=Math.max(0,Math.ceil(sec-R.t))+' s';
+  if(!$('rh').hidden) R.raf=requestAnimationFrame(rhTick); }
+$('bRehearse').addEventListener('click',()=>{ R.i=0;R.t=0;R.on=true;R.last=performance.now(); $('rhPause').textContent='Pause'; $('rh').hidden=false; rhShow(); R.raf=requestAnimationFrame(rhTick); try{ navigator.wakeLock&&navigator.wakeLock.request('screen').then(l=>R.lock=l).catch(()=>{}); }catch(e){} });
+$('rhClose').addEventListener('click',()=>{ $('rh').hidden=true; cancelAnimationFrame(R.raf); try{ R.lock&&R.lock.release(); }catch(e){} });
+$('rhPause').addEventListener('click',()=>{ const sec=+S.g.sec||20; if(R.i===9&&R.t>=sec){ R.i=0;R.t=0;R.on=true; rhShow(); } else R.on=!R.on; $('rhPause').textContent=R.on?'Pause':'Resume'; });
+$('rhHide').addEventListener('click',()=>{ R.hide=!R.hide; $('rhHide').textContent=R.hide?'Show script':'Hide script'; rhShow(); });
+
+buildCards(); refreshAll();
+</script>

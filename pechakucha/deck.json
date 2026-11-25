@@ -1,0 +1,65 @@
+[
+ {"topic": "The question", "search": "dark silhouette man night",
+  "words": ["Why?", "Why him?", "Criminal Mind"],
+  "script": "A man walks into a shop and robs it. The police ask how. Which door? What weapon? What time? A forensic psychologist asks something else. Why him? And why that day? For the next three minutes, I want to ask that question with you.",
+  "note": ["The robber is invented. He is there so the ten slides follow one case instead of ten topics."]},
+
+ {"topic": "The brain: prefrontal cortex", "search": "Phineas Gage skull",
+  "words": ["The Brake", "No Brake", "1848"],
+  "script": "First, the brain. In 1848 an iron bar shot through Phineas Gage's head. He lived, but friends said he was not Gage any more. He turned rude and impulsive. The front part is our brake. In one study, murderers' scans showed a weaker brake.",
+  "note": ["The bar went in under his left cheekbone and came out through the top of the skull, damaging the left frontal lobe. 13 September 1848, Vermont.",
+           "\"No longer Gage\" comes from his doctor, John Harlow, writing in 1868. The change was probably temporary: Gage later worked for years as a stagecoach driver in Chile (Macmillan, 2000).",
+           "The scan study is Raine, Buchsbaum and LaCasse (1997): PET scans of 41 murderers who pleaded insanity and 41 controls. It is a group average and a correlation, so say \"one study\", not \"murderers have\"."]},
+
+ {"topic": "The brain: amygdala, fear and empathy", "search": "brain MRI scan dark",
+  "words": ["No Fear", "The Alarm", "No Empathy"],
+  "script": "Deeper inside is the amygdala, our alarm. It reacts when we see a frightened face. In people with psychopathic traits it tends to stay quiet. They see your fear but don't feel it. It is information, like a weather forecast. And punishment doesn't scare them much.",
+  "note": ["Weaker amygdala response to fearful faces: Marsh et al. (2008) in young people with callous-unemotional traits; Birbaumer et al. (2005) in adults during fear conditioning.",
+           "Results across studies are mixed, which is why the script says \"tends to\".",
+           "Say it a-MIG-da-la."]},
+
+ {"topic": "Personality: dissocial disorder and psychopathy", "search": "mask face dark portrait",
+  "words": ["The Mask", "No Guilt", "Charming"],
+  "script": "A psychopath wears a mask. Charming outside, no guilt inside. The diagnosis is dissocial personality disorder, and the psychopath is its coldest type. About one in a hundred, but up to one in five in some prisons. Most never kill anyone. Some do well in business.",
+  "note": ["Psychopathy is not an official diagnosis. It is measured with Hare's checklist, the PCL-R. The diagnosis is dissocial personality disorder in ICD-10 and antisocial personality disorder in DSM-5.",
+           "About 1.2% of the general population (Sanz-García et al., 2021). One in five is the upper figure from North American prisons; in England and Wales it was 7.7% of male prisoners (Coid et al., 2009).",
+           "\"The Mask of Sanity\" is Hervey Cleckley's 1941 book, where the image comes from."]},
+
+ {"topic": "Nature and nurture", "search": "empty swing playground dusk",
+  "words": ["Born? Made?", "Loaded Gun", "Both"],
+  "script": "So, born or made? Both. A New Zealand study followed children from birth. Boys with a risky gene and an abusive childhood got into the most trouble. The same gene in a safe home did almost nothing. Genes load the gun. Childhood pulls the trigger.",
+  "note": ["The Dunedin study follows 1,037 children born in 1972 and 1973. The gene analysis used the 442 boys, followed to age 26 (Caspi et al., 2002, Science). The gene is MAOA.",
+           "\"Abusive\" covers neglect and rejection as well as violence. The gene alone had no clear effect. A review of 27 studies confirmed the finding in males (Byrd and Manuck, 2014).",
+           "The gun line is an old saying with no clear author. Do not call MAOA the \"warrior gene\"."]},
+
+ {"topic": "Profiling", "search": "crime scene tape night",
+  "words": ["Signature", "The Scene", "Clues"],
+  "script": "Back to our shop. A profiler tries to read the scene like handwriting. Gloves and a broken window are the method. He needed them. Anything he didn't need is his signature. A profile gives no name. At best, it makes the list shorter.",
+  "note": ["Method (modus operandi) is what the crime requires and changes as the offender learns. Signature is what he adds for himself and stays the same (Douglas and Munn, 1992, FBI).",
+           "Research finds profilers do only slightly better than non-profilers (Snook et al., 2007). That is why the script says \"tries\" and \"at best\"."]},
+
+ {"topic": "Eyewitness memory", "search": "face behind rainy window",
+  "words": ["False Memory", "Smashed", "The Witness"],
+  "script": "Then the witnesses. But memory is not a camera. Loftus and Palmer showed people a car crash on film. When the question said smashed, people remembered more speed. Some remembered broken glass that wasn't there. And with a gun, people watch the gun, not the face.",
+  "note": ["Loftus and Palmer (1974): asked how fast the cars \"smashed\", students guessed about 41 mph; with \"contacted\", about 32 mph. A week later about a third of the \"smashed\" group remembered broken glass. There was none.",
+           "The gun effect is called weapon focus (Loftus, Loftus and Messo, 1987). It makes memory for the face worse; it does not erase it."]},
+
+ {"topic": "Investigative interviews", "search": "interrogation room table lamp",
+  "words": ["Confession", "Too Well", "The Interview"],
+  "script": "Next, the interview room. The classic American method starts from guilt and pushes until the suspect confesses. It works too well. Innocent people confess too, especially teenagers. Police in England now ask open questions and listen. Then they check the story against the evidence.",
+  "note": ["The American method is the Reid technique (Inbau and Reid, 1962). It is still widely taught in the United States, so call it \"classic\", not \"old\".",
+           "The English method is the PEACE model, introduced in England and Wales in 1992 after several wrongful convictions.",
+           "More than a quarter of the Innocence Project's DNA exonerations involved a false confession. A third of 125 proven false confessions came from under-18s (Drizin and Leo, 2004)."]},
+
+ {"topic": "In court and in prison", "search": "empty courtroom",
+  "words": ["In Court", "Real? Acted?", "Safe?"],
+  "script": "Finally, the court. The psychologist helps with two questions. Did he understand what he was doing? Is his illness real, or is he acting? Later, in prison, a third. Is it safe to let him out? It is only an estimate, and somebody must sign it.",
+  "note": ["The expert advises and the court decides. In many European courts a psychiatrist leads on sanity and the psychologist contributes. Check how your course describes it.",
+           "Faking illness is called malingering. Risk before release is estimated with tools such as the HCR-20 and the PCL-R, which are only moderately accurate (Fazel et al., 2012)."]},
+
+ {"topic": "The point", "search": "open door light dark room",
+  "words": ["Earlier", "Why him?", "Before"],
+  "script": "So, why him? A brain with weak brakes. Little fear. A childhood that taught him violence. Why that day? One bad day. None of this excuses the crime. But much of it can be noticed early. We study it to get there before the police.",
+  "note": ["No \"Thank you\" slide: the rules ask you to keep talking over the last photo until it ends.",
+           "\"Much of it\", not \"all of it\". Early warning signs raise risk; they do not predict a crime."]}
+]
