@@ -72,6 +72,7 @@ textarea{width:100%;min-height:9.2em;resize:vertical;background:var(--bg);border
 .meter{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:12.5px;align-items:baseline}
 .meter .t.ok{color:var(--ok)} .meter .t.warn{color:var(--warn)} .meter .t.bad{color:var(--bad)}
 .flags{font-size:12.5px;color:var(--warn)}
+.terms{border-collapse:collapse;width:100%;font-size:14px}.terms th{text-align:left;font:600 11px/1.2 var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}.terms th,.terms td{padding:6px 14px 6px 0;border-bottom:1px solid var(--line);vertical-align:top}.terms td:last-child{font-family:var(--mono);font-size:12.5px;color:var(--muted)}
 details{font-size:13.5px}
 details summary{cursor:pointer;color:var(--muted);font-weight:500}
 details p,details ul{margin:8px 0 0;max-width:68ch}
@@ -109,7 +110,7 @@ details li{margin-bottom:6px}
     <p class="label">Forensic Psychology · How a Mind of a Criminal Works</p>
     <h1>Criminal Mind PechaKucha</h1>
     <p class="lede">Ten photos, one or two words on each, twenty seconds per slide. Pick the photo, adjust the word, put the script into your own words, then build the PowerPoint file.</p>
-    <p class="facts"><span><b>10</b> slides</span><span><b id="fSec">20</b> s each</span><span><b id="fTotal">3:20</b> total</span><span>script stays out of the file</span></p>
+    <p class="facts"><span><b>10</b> slides</span><span><b id="fSec">20</b> s each</span><span><b id="fTotal">3:20</b> total</span><span>script stays out of the file</span><span><b id="fOwn">0</b> of 10 slides in your own words</span></p>
   </header>
 
   <section class="panel" aria-labelledby="hLook">
@@ -135,6 +136,31 @@ details li{margin-bottom:6px}
   </section>
 
   <div id="slides" class="col" style="gap:16px"></div>
+
+  <section class="panel" aria-labelledby="hTerms">
+    <h2 id="hTerms">Key terms</h2>
+    <p class="small">The words the talk and the discussion after it lean on. The Gemini chat asked for these; the stress marks are for saying them aloud.</p>
+    <div style="overflow-x:auto"><table class="terms">
+      <thead><tr><th>English</th><th>Slovak</th><th>Say it</th></tr></thead>
+      <tbody>
+        <tr><td>offender</td><td>páchateľ</td><td>o-FEN-der</td></tr>
+        <tr><td>prefrontal cortex</td><td>prefrontálna kôra</td><td>pree-FRUN-tl KOR-teks</td></tr>
+        <tr><td>amygdala</td><td>amygdala</td><td>a-MIG-da-la</td></tr>
+        <tr><td>impulse control</td><td>ovládanie impulzov</td><td>IM-puls</td></tr>
+        <tr><td>remorse, guilt</td><td>výčitky svedomia, vina</td><td>ri-MORS, gilt</td></tr>
+        <tr><td>dissocial personality disorder</td><td>disociálna porucha osobnosti</td><td>dis-SOH-shl</td></tr>
+        <tr><td>psychopath, psychopathic</td><td>psychopat, psychopatický</td><td>SY-ko-path, sy-ko-PATH-ik (silent p)</td></tr>
+        <tr><td>nature and nurture</td><td>vrodené a získané</td><td>NAY-cher, NER-cher</td></tr>
+        <tr><td>method (modus operandi)</td><td>spôsob vykonania činu</td><td>MOH-dus o-pe-RAN-dee</td></tr>
+        <tr><td>signature</td><td>podpis páchateľa</td><td>SIG-na-cher</td></tr>
+        <tr><td>eyewitness</td><td>očitý svedok</td><td>EYE-wit-nes</td></tr>
+        <tr><td>weapon focus</td><td>efekt zbrane</td><td>WE-pn (w, not v)</td></tr>
+        <tr><td>false confession</td><td>falošné priznanie</td><td>kon-FE-shn</td></tr>
+        <tr><td>malingering</td><td>simulovanie choroby</td><td>ma-LING-ge-ring</td></tr>
+        <tr><td>risk assessment</td><td>hodnotenie rizika</td><td>a-SES-ment</td></tr>
+        <tr><td>recidivism</td><td>recidíva</td><td>ri-SI-di-vi-zm</td></tr>
+      </tbody></table></div>
+  </section>
 
   <section class="panel" aria-labelledby="hChanged">
     <h2 id="hChanged">What changed from the Gemini draft</h2>
@@ -230,7 +256,7 @@ function buildCards(){
     const meter = el('div',{class:'meter'}); const flags = el('p',{class:'flags'});
     const reset = el('button',{type:'button',class:'linkbtn',text:'Restore suggested text',onclick:()=>{ S.s[i].script=d.script; ta.value=d.script; save(); refresh(i); }});
     const left = el('div',{class:'col'},[stage,credit,el('p',{class:'small'},[el('a',{href:'https://www.google.com/search?udm=2&q='+encodeURIComponent(d.search),target:'_blank',rel:'noopener',text:'More on Google Images'}),document.createTextNode(' · save one you like, then use it as your own photo.')])]);
-    const right = el('div',{class:'col'},[el('span',{class:'label',text:'Photo'}),thumbs,el('span',{class:'label',text:'Word on the slide'}),words,wc,el('span',{class:'label',text:'What you say'}),ta,meter,flags]);
+    const right = el('div',{class:'col'},[el('span',{class:'label',text:'Photo'}),thumbs,el('span',{class:'label',text:'Word on the slide'}),words,wc,el('span',{class:'label',text:'What you say'}),ta,meter,flags,el('p',{class:'small'},[el('b',{text:'Make it yours. '}),document.createTextNode(d.own)])]);
     if(d.note.length){ const det=el('details',{},[el('summary',{text:'If someone asks'})]); const ul=el('ul'); d.note.forEach(n=>ul.append(el('li',{text:n}))); det.append(ul); right.append(det); }
     const head = el('header',{},[el('span',{class:'num mono',text:String(i+1).padStart(2,'0')}),el('span',{class:'topic',text:d.topic}),el('span',{class:'when mono'})]);
     host.append(el('article',{class:'slide'},[head,left,right]));
@@ -274,7 +300,7 @@ function rules(){ const list=ruleList(), host=$('rules'); host.replaceChildren()
   list.forEach(([ok,t])=>host.append(el('li',{class:ok?'ok':'no'},[el('span',{class:'mark',text:ok?'OK':'FIX'}),el('span',{text:t})])));
   const bad=list.filter(x=>!x[0]).length; $('bBuild').disabled = bad>0 || busy;
   if(!busy) $('status').textContent = bad ? bad+(bad===1?' rule is':' rules are')+' broken. Fix '+(bad===1?'it':'them')+' to build the file.' : 'All course rules pass. Ready to build.';
-  const sec=+S.g.sec||20; $('fSec').textContent=sec; $('fTotal').textContent=mmss(sec*10); }
+  $('fOwn').textContent=S.s.filter((x,i)=>x.script.trim()!==DECK[i].script.trim()).length; const sec=+S.g.sec||20; $('fSec').textContent=sec; $('fTotal').textContent=mmss(sec*10); }
 function refreshAll(){ DECK.forEach((_,i)=>refresh(i)); $('gDarkV').textContent=S.g.dark+'%'; }
 
 const G={gTone:'tone',gFont:'font',gSize:'size',gPos:'pos',gColor:'color',gCase:'case',gDark:'dark',gSec:'sec',gPace:'pace'};
